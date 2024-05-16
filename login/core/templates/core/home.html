@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+  }
+  .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  h1 {
+      text-align: center;
+      color: #333;
+  }
+</style>
+
+<body>
+
+    <div class="container">
+        <h1>Sistema de Gestion Barberia Oscar</h1>
+        {% if not request.user.is_authenticated %}
+        <center>
+        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-secondary">Registrarse</a> </center>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+{% endblock %}

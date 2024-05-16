@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h1>Información del Empleado</h1>
+
+<div class="container">
+    <h2>{{ user.username }}</h2>
+    <p>Nombre: {{ user.first_name }}</p>
+    <p>Apellido: {{ user.last_name }}</p>
+    <p>Correo electrónico: {{ user.email }}</p>
+    <p>Tu cargo es: {{ cargo }}</p>
+</div>
+
+<h2>Añadir Certificación</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="certificacion">Certificación:</label>
+        <input type="text" id="certificacion" name="certificacion" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Añadir Certificación</button>
+</form>
+
+<h2>Citas del Empleado</h2>
+<div class="container">
+    {% if citas %}
+        <ul>
+            {% for cita in citas %}
+                <li>{{ cita.1 }} - {{ cita.5 }} - {{ cita.3 }} - {{ cita.4 }}
+                    <form method="post" action="{% url 'eliminar_cita' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="cliente_nombre" value="{{ cita.1 }}">
+                        <input type="hidden" name="tipo_servicio" value="{{ cita.5 }}">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay citas para mostrar.</p>
+    {% endif %}
+</div>
+{% endblock %}
