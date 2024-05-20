@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class Empleado(models.Model):
     username = models.CharField(max_length=255)
     nombre = models.CharField(max_length=255)

@@ -21,7 +21,43 @@
     <button type="submit" class="btn btn-primary">Añadir Certificación</button>
 </form>
 
-<h2>Citas del Empleado</h2>
+{% if cargo == "Jefe" %}
+<h2>Empleados</h2>
+<div class="container">
+    {% if empleados %}
+        <ul>
+            {% for empleado in empleados %}
+                <li>{{ empleado.1 }} {{ empleado.2 }} ({{ empleado.0 }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay empleados para mostrar.</p>
+    {% endif %}
+</div>
+
+<h2>Citas de Todos los Empleados</h2>
+<div class="container">
+    {% if todas_citas %}
+        <ul>
+            {% for cita in todas_citas %}
+                <li>{{ cita.7 }} {{ cita.8 }} - {{ cita.1 }} - {{ cita.5 }} - {{ cita.3 }} - {{ cita.4 }}
+                    <form method="post" action="{% url 'eliminar_cita' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="cliente_nombre" value="{{ cita.1 }}">
+                        <input type="hidden" name="tipo_servicio" value="{{ cita.5 }}">
+                        <input type="hidden" name="username" value="{{ cita.2 }}">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay citas para mostrar.</p>
+    {% endif %}
+</div>
+{% endif %}
+
+<h2>Citas de {{ user.username }}</h2>
 <div class="container">
     {% if citas %}
         <ul>
@@ -31,6 +67,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="cliente_nombre" value="{{ cita.1 }}">
                         <input type="hidden" name="tipo_servicio" value="{{ cita.5 }}">
+                        <input type="hidden" name="username" value="{{ cita.2 }}">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </li>

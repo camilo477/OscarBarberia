@@ -82,27 +82,10 @@ class ServicioForm(forms.Form):
     tipo_servicio = forms.ChoiceField(choices=TIPOS_SERVICIO_CHOICES)
     fecha = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     hora = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
-    PRODUCTOS_CHOICES = [
-        ('gel', 'Gel'),
-        ('pomada', 'Pomada'),
-        ('shampoo', 'Shampoo'),
-        ('acondicionador', 'Acondicionador'),
-        ('aceite_barba', 'Aceite para barba'),
-        ('locion_aftershave', 'Loción aftershave'),
-        ('serum_capilar', 'Serum capilar'),
-        ('espuma_afeitar', 'Espuma de afeitar'),
-        ('crema_hidratante', 'Crema hidratante'),
-        ('mascarilla_capilar', 'Mascarilla capilar'),
-        ('crema_peinar', 'Crema para peinar'),
-        ('aceite_hidratante', 'Aceite hidratante'),
-        ('laca_cabello', 'Laca para cabello'),
-        ('gel_fijador', 'Gel fijador'),
-        ('tinte_cabello', 'Tinte para cabello'),
-        ('spray_brillo', 'Spray de brillo'),
-        ('mousse_capilar', 'Mousse capilar'),
-        ('cera_modelado', 'Cera para modelado'),
-        ('suavizante_cabello', 'Suavizante para cabello'),
-        ('crema_definir_rizos', 'Crema para definir rizos'),
-    ]
-    productos = forms.MultipleChoiceField(choices=PRODUCTOS_CHOICES, widget=forms.SelectMultiple)
+    productos = forms.MultipleChoiceField(choices=[], widget=forms.SelectMultiple)
     cantidad_producto = forms.IntegerField(min_value=1)
+
+    def __init__(self, *args, **kwargs):
+        productos_choices = kwargs.pop('productos_choices', [])
+        super(ServicioForm, self).__init__(*args, **kwargs)
+        self.fields['productos'].choices = productos_choices

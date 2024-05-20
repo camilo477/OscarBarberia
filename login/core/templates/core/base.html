@@ -41,7 +41,7 @@
                                     <a href="{% url 'citas' %}" class="nav-link px-0"> <span class="d-none d-sm-inline">Citas</span> </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Inventario</span> </a>
+                                    <a href="{% url 'inventario' %}" class="nav-link px-0"> <span class="d-none d-sm-inline">Inventario</span> </a>
                                 </li>
                                 <li>
                                     <a href="{% url 'empleado' %}" class="nav-link px-0"> <span class="d-none d-sm-inline">empleado</span> </a>
@@ -62,7 +62,6 @@
                 </div>
             </div>
             <div class="col py-3">
-                <!-- Contenido de las páginas específicas -->
                 {% block content %}{% endblock %}
             </div>
         </div>

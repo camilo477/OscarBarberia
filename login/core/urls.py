@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import home, products, exit, register, servicios, crear_cita, empleado, eliminar_cita
+from .views import home, products, exit, register, servicios, crear_cita, empleado, eliminar_cita,inventario,agregar_inventario
 
 urlpatterns = [
     path('', home, name='home'),
@@ -11,4 +11,6 @@ urlpatterns = [
     path('citas/', crear_cita, name='citas'),
     path('empleado/', empleado, name='empleado'),
     path('eliminar_cita/', eliminar_cita, name='eliminar_cita'),
+    path('inventario/', inventario, name='inventario'),
+    path('agregar_inventario/', agregar_inventario, name='agregar_inventario'),
 ]
