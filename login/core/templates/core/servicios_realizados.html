@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center mb-4">Servicios Realizados</h2>
+      <div class="row">
+        {% for empleado, servicios in servicios_agrupados.items %}
+        <div class="col-md-4">
+          <h3>{{ empleado }}</h3>
+          <div class="list-group">
+            {% for servicio in servicios %}
+            <div class="list-group-item">
+              <p><strong>Tipo de Servicio:</strong> {{ servicio.0 }}</p>
+              <p><strong>Fecha:</strong> {{ servicio.2 }}</p>
+              <p><strong>Hora:</strong> {{ servicio.3 }}</p>
+              <p><strong>Producto:</strong> {{ servicio.4 }}</p>
+              <p><strong>Cantidad de Producto:</strong> {{ servicio.5 }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

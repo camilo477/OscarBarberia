@@ -22,7 +22,7 @@ class CitaForm(forms.ModelForm):
         ('corte_barba', 'Corte de cabello y barba'),
         ('diseno_barba', 'Diseño de barba'),
         ('tratamiento_cuero_cabelludo', 'Tratamiento de cuero cabelludo'),
-        ('peinado_especial_hombre', 'Peinado especial'),
+        ('peinado_especial', 'Peinado especial'),
         ('peinado', 'Peinado'),
         ('coloracion_cabello', 'Coloración de cabello'),
         ('alisado_rizado', 'Alisado/Rizado de cabello'),

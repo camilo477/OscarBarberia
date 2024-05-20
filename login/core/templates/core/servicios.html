@@ -1,14 +1,47 @@
+
+
 {% extends 'core/base.html' %}
 
 {% block content %}
-<h1>Servicios</h1>
-
-<div class="container">
-    <form action="" method="POST">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="text-center mb-4">Servicios</h1>
+      <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Enviar</button>
-    </form>
-</div>
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="id_tipo_servicio">Tipo de Servicio:</label>
+              {{ form.tipo_servicio }}
+            </div>
+            <div class="form-group">
+              <label for="id_fecha">Fecha:</label>
+              {{ form.fecha }}
+            </div>
+            <div class="form-group">
+              <label for="id_hora">Hora:</label>
+              {{ form.hora }}
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="id_productos">Productos:</label>
+              {{ form.productos }}
+            </div>
+            <div class="form-group">
+              <label for="id_cantidad_producto">Cantidad de Producto:</label>
+              {{ form.cantidad_producto }}
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+      </form>
 
+      
+    </div>
+  </div>
+</div>
 {% endblock %}

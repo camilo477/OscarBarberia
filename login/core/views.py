@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import connection
 from .models import Empleado
 from django.contrib import messages
-
+from itertools import groupby
 @login_required
 def obtener_cargo(username):
     try:
@@ -84,7 +84,7 @@ def agregar_inventario(request):
             messages.error(request, 'No tienes permiso para agregar elementos al inventario.')
         
     return redirect('inventario')
-
+@login_required
 def crear_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
@@ -170,6 +170,36 @@ def citas(request):
     return render(request, 'core/citas.html')
 
 
+@login_required
+def servicios_realizados(request):
+    username = request.user.username
+    cargo = obtener_cargo(username)
+    servicios_usuario = []
+    empleados = []
+
+    try:
+        with connection.cursor() as cursor:
+            if cargo == "Jefe":
+                cursor.execute("SELECT tipo_servicio, username, fecha, hora, producto, cantidad_producto FROM servicios")
+                servicios_usuario = cursor.fetchall()
+            else:
+                cursor.execute("SELECT tipo_servicio,username, fecha, hora, producto, cantidad_producto FROM servicios WHERE username = %s", [username])
+                servicios_usuario = cursor.fetchall()
+                
+            cursor.execute("SELECT nombre FROM empleados")
+            empleados = cursor.fetchall()
+            
+            # Agrupar los servicios por tipo de usuario
+            servicios_agrupados = {}
+            for empleado, servicios in groupby(servicios_usuario, key=lambda x: x[1]):
+                servicios_agrupados[empleado] = list(servicios)
+
+    except Exception as e:
+        print("Error al obtener los servicios del usuario:", e)
+
+    return render(request, 'core/servicios_realizados.html', {'cargo': cargo, 'servicios_agrupados': servicios_agrupados, 'empleados': empleados})
+
+
 
 def exit(request):
     logout(request)
@@ -247,9 +277,8 @@ def servicios(request):
             print(form.errors)  
     else:
         form = ServicioForm(productos_choices=productos_choices)
-    
-    return render(request, 'core/servicios.html', {'form': form})
 
+    return render(request, 'core/servicios.html', {'form': form})
 
 
 
