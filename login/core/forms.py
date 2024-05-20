@@ -48,17 +48,23 @@ class CitaForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-	email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True)
+    CARGO_CHOICES = [
+        ('Jefe', 'Jefe'),
+        ('Barbero', 'Barbero'),
+    ]
+    cargo = forms.ChoiceField(choices=CARGO_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
 
-	class Meta:
-		model = User
-		fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
-	def clean_email(self):
-		email = self.cleaned_data['email']
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'cargo']
 
-		if User.objects.filter(email=email).exists():
-			raise forms.ValidationError('Este correo electrónico ya está registrado')
-		return email
+    def clean_email(self):
+        email = self.cleaned_data['email']
+
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Este correo electrónico ya está registrado')
+        return email
 	
 class ServicioForm(forms.Form):
     TIPOS_SERVICIO_CHOICES = [

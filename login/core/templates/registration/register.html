@@ -10,18 +10,14 @@
 
 <form id="register-form" action="" method="post">
     {% csrf_token %}
-
     <div class="card mx-auto" style="width: 30rem;">
-      <div class="card-body">
-        <h5 class="card-title">Complete todos los campos</h5>
-        {{ form | crispy }}
-        <div data-mdb-input-init class="form-outline mb-4">
-          <input type="text" name="cargo" id="" placeholder="Cargo">
+        <div class="card-body">
+            <h5 class="card-title">Complete todos los campos</h5>
+            {{ form | crispy }}
+            <a href="{% url 'login' %}" class="card-link">Iniciar sesión</a>
+            <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>
         </div>
-        <a href={% url 'login' %} class="card-link">Iniciar sesion</a>
-
-        <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>
-      </div>
     </div>
 </form>
+
 {% endblock %}
